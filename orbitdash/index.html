@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orbit Dash - Switch. Survice. Score.</title>
+    <meta name="description" content="Orbit Dash is a fast-paced mobile arcade game. Navigate orbital rings, dodge obstacles, and collect power-ups in this addictive space adventure.">
+    <meta property="og:title" content="Orbit Dash - Switch. Survice. Score.">
+    <meta property="og:description" content="Navigate orbital rings, dodge obstacles, and collect power-ups in this addictive mobile arcade game.">
+    <meta property="og:image" content="https://sagar-288.github.io/orbitdash/assets/game_logo.png">
+    <meta property="og:url" content="https://sagar-288.github.io/orbitdash/">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="icon" type="image/png" href="/orbitdash/assets/game_logo.png">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background: #0a0e1a;
+            color: #e0e0e0;
+            line-height: 1.6;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            text-align: center;
+            padding: 4rem 1.5rem 3rem;
+            background: linear-gradient(180deg, #0f1628 0%, #1a1040 40%, #0a0e1a 100%);
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 500px;
+            height: 500px;
+            transform: translate(-50%, -55%);
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(124, 92, 252, 0.08) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .orbit-ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            border-radius: 50%;
+            border: 1px solid rgba(124, 92, 252, 0.1);
+            pointer-events: none;
+        }
+
+        .orbit-ring-1 {
+            width: 300px;
+            height: 300px;
+            transform: translate(-50%, -55%);
+            animation: spin 20s linear infinite;
+        }
+
+        .orbit-ring-2 {
+            width: 450px;
+            height: 450px;
+            transform: translate(-50%, -55%);
+            animation: spin 30s linear infinite reverse;
+            border-color: rgba(124, 92, 252, 0.06);
+        }
+
+        .orbit-ring-3 {
+            width: 600px;
+            height: 600px;
+            transform: translate(-50%, -55%);
+            animation: spin 40s linear infinite;
+            border-color: rgba(124, 92, 252, 0.03);
+        }
+
+        @keyframes spin {
+            from { transform: translate(-50%, -55%) rotate(0deg); }
+            to { transform: translate(-50%, -55%) rotate(360deg); }
+        }
+
+        .hero-logo {
+            width: 140px;
+            height: 140px;
+            border-radius: 28px;
+            margin: 0 auto 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 0.25rem;
+            position: relative;
+            z-index: 1;
+            letter-spacing: -0.5px;
+        }
+
+        .hero h1 span {
+            color: #7c5cfc;
+        }
+
+        .hero .tagline {
+            font-size: 1.15rem;
+            color: #8a8a9a;
+            margin-bottom: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .store-buttons {
+            display: flex;
+            gap: 0.75rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 1;
+        }
+
+        .store-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            background: #111827;
+            border: 1px solid #1e293b;
+            color: #fff;
+            padding: 0.7rem 1.4rem;
+            border-radius: 10px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .store-btn:hover {
+            border-color: #7c5cfc;
+            background: #151d30;
+        }
+
+        .store-btn svg {
+            width: 22px;
+            height: 22px;
+            flex-shrink: 0;
+        }
+
+        .store-btn .store-label {
+            text-align: left;
+            line-height: 1.2;
+        }
+
+        .store-btn .store-label small {
+            font-size: 0.65rem;
+            font-weight: 400;
+            color: #9ca3af;
+            display: block;
+        }
+
+        /* Container */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* Features */
+        .features {
+            padding: 3rem 0;
+        }
+
+        .features h2 {
+            text-align: center;
+            font-size: 1.6rem;
+            color: #fff;
+            margin-bottom: 2rem;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1rem;
+        }
+
+        .feature-card {
+            background: #111827;
+            border: 1px solid #1e293b;
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: border-color 0.2s;
+        }
+
+        .feature-card:hover {
+            border-color: rgba(124, 92, 252, 0.3);
+        }
+
+        .feature-icon {
+            font-size: 1.6rem;
+            margin-bottom: 0.75rem;
+            display: block;
+        }
+
+        .feature-card h3 {
+            font-size: 1rem;
+            color: #fff;
+            margin-bottom: 0.4rem;
+        }
+
+        .feature-card p {
+            font-size: 0.88rem;
+            color: #9ca3af;
+        }
+
+        /* How to Play */
+        .how-to-play {
+            padding: 2rem 0 3rem;
+        }
+
+        .how-to-play h2 {
+            text-align: center;
+            font-size: 1.6rem;
+            color: #fff;
+            margin-bottom: 2rem;
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.25rem;
+        }
+
+        .step {
+            text-align: center;
+            padding: 1.25rem;
+        }
+
+        .step-number {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #7c5cfc, #5a3fd4);
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1rem;
+            color: #fff;
+            margin-bottom: 0.75rem;
+        }
+
+        .step h3 {
+            font-size: 0.95rem;
+            color: #fff;
+            margin-bottom: 0.3rem;
+        }
+
+        .step p {
+            font-size: 0.85rem;
+            color: #9ca3af;
+        }
+
+        /* Stats Bar */
+        .stats-bar {
+            display: flex;
+            justify-content: center;
+            gap: 2.5rem;
+            flex-wrap: wrap;
+            padding: 2rem 0;
+            border-top: 1px solid #1e293b;
+            border-bottom: 1px solid #1e293b;
+            margin: 1rem 0 2rem;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: #7c5cfc;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: #6b7280;
+            margin-top: 0.15rem;
+        }
+
+        /* CTA */
+        .cta {
+            text-align: center;
+            padding: 3rem 0;
+        }
+
+        .cta h2 {
+            font-size: 1.8rem;
+            color: #fff;
+            margin-bottom: 0.5rem;
+        }
+
+        .cta p {
+            color: #9ca3af;
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #7c5cfc, #5a3fd4);
+            color: #fff;
+            padding: 0.85rem 2.5rem;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1rem;
+            transition: opacity 0.2s;
+        }
+
+        .cta-btn:hover {
+            opacity: 0.9;
+        }
+
+        /* Footer */
+        .footer {
+            border-top: 1px solid #1e293b;
+            padding: 2rem 1.5rem;
+            text-align: center;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: #9ca3af;
+            text-decoration: none;
+            font-size: 0.85rem;
+        }
+
+        .footer-links a:hover {
+            color: #7c5cfc;
+        }
+
+        .footer .copyright {
+            color: #4b5563;
+            font-size: 0.8rem;
+        }
+
+        @media (max-width: 600px) {
+            .hero { padding: 3rem 1.25rem 2.5rem; }
+            .hero h1 { font-size: 2.2rem; }
+            .hero .tagline { font-size: 1rem; }
+            .hero-logo { width: 110px; height: 110px; border-radius: 22px; }
+            .stats-bar { gap: 1.5rem; }
+            .feature-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <section class="hero">
+        <!-- <div class="orbit-ring orbit-ring-1"></div>
+        <div class="orbit-ring orbit-ring-2"></div>
+        <div class="orbit-ring orbit-ring-3"></div> -->
+
+        <img class="hero-logo" src="assets/game_logo.png" alt="Orbit Dash" width="140" height="140">
+        <h1>Orbit <span>Dash</span></h1>
+        <p class="tagline">Switch. Survice. Score.</p>
+
+        <div class="store-buttons">
+            <a class="store-btn" href="#" aria-label="Get it on Google Play">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 0 1-.61-.92V2.734a1 1 0 0 1 .609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-3.199l2.807 1.626a1 1 0 0 1 0 1.732l-2.807 1.626L15.206 12l2.492-2.492zM5.864 3.458L16.8 9.79l-2.302 2.302-8.634-8.634z"/></svg>
+                <span class="store-label"><small>Get it on</small>Google Play</span>
+            </a>
+            <a class="store-btn" href="#" aria-label="Download on the App Store">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+                <span class="store-label"><small>Download on the</small>App Store</span>
+            </a>
+        </div>
+    </section>
+
+    <div class="container">
+        <div class="stats-bar">
+            <div class="stat">
+                <div class="stat-value">6</div>
+                <div class="stat-label">Spaceships</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">8</div>
+                <div class="stat-label">Power-ups</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">4</div>
+                <div class="stat-label">Languages</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">60</div>
+                <div class="stat-label">FPS Smooth</div>
+            </div>
+        </div>
+
+        <section class="features">
+            <h2>What Makes It Addictive</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <span class="feature-icon" aria-hidden="true">&#x1F680;</span>
+                    <h3>One-Tap Controls</h3>
+                    <p>Simple gravity-flip mechanics that anyone can pick up, but take skill to master.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon" aria-hidden="true">&#x1F6E1;&#xFE0F;</span>
+                    <h3>Power-Ups</h3>
+                    <p>Shields, magnets, multipliers, and more. Collect pickups to boost your run.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon" aria-hidden="true">&#x1F3A8;</span>
+                    <h3>Customize Everything</h3>
+                    <p>Unlock spaceships, ring themes, and exhaust trails. Make the game yours.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon" aria-hidden="true">&#x1F3C6;</span>
+                    <h3>Leaderboards</h3>
+                    <p>Compete with players worldwide. Climb the ranks and prove you're the best.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon" aria-hidden="true">&#x2601;&#xFE0F;</span>
+                    <h3>Cloud Saves</h3>
+                    <p>Sign in to sync progress across all your devices. Never lose your unlocks.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="how-to-play">
+            <h2>How to Play</h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Orbit</h3>
+                    <p>Your ship circles three orbital rings automatically.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Dodge</h3>
+                    <p>Tap to switch rings and avoid blades, meteors, and patrol bots.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Collect</h3>
+                    <p>Grab power-ups and star coins to boost your score and unlock rewards.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h3>Survive</h3>
+                    <p>The longer you last, the faster it gets. How long can you orbit?</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="cta">
+            <h2>Ready to Orbit?</h2>
+            <p>Free to play on iOS and Android.</p>
+            <a class="cta-btn" href="#">Download Now</a>
+        </section>
+    </div>
+
+    <footer class="footer">
+        <nav class="footer-links">
+            <a href="/orbitdash/support">Support</a>
+            <a href="/orbitdash/privacy">Privacy Policy</a>
+            <a href="mailto:skalsaria288@gmail.com">Contact</a>
+        </nav>
+        <p class="copyright">&copy; 2026 Orbit Dash. All rights reserved.</p>
+    </footer>
+</body>
+</html>
