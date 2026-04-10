@@ -6,23 +6,84 @@
   <title>Orbit Dash — Download</title>
 
   <script>
-    // ─── CONFIGURE THESE THREE LINES ─────────────────────────────
-    var IOS_URL     = "https://apps.apple.com/in/app/orbit-dash-infinity/id6759604722";
+    // ─── CONFIGURE ───────────────────────────────────────────────
+    var APP_STORE_ID = "id6759604722";
+    var APP_STORE_PATH = "/app/orbit-dash-infinity/" + APP_STORE_ID;
     var ANDROID_URL = "https://play.google.com/store/apps/details?id=com.orbitdash.orbitdash";
     var FALLBACK_URL= "https://sagar-288.github.io/orbitdash/";
     // ─────────────────────────────────────────────────────────────
 
+    // Map navigator language to App Store country code
+    function getAppStoreCountry() {
+      var lang = (navigator.language || navigator.userLanguage || "").toLowerCase();
+      // language-region pairs → country code
+      var regionMap = {
+        "en-us": "us", "en-gb": "gb", "en-au": "au", "en-ca": "ca", "en-in": "in",
+        "en-nz": "nz", "en-sg": "sg", "en-za": "za", "en-ie": "ie", "en-ph": "ph",
+        "fr-fr": "fr", "fr-ca": "ca", "fr-be": "be", "fr-ch": "ch",
+        "de-de": "de", "de-at": "at", "de-ch": "ch",
+        "es-es": "es", "es-mx": "mx", "es-ar": "ar", "es-co": "co", "es-cl": "cl",
+        "pt-br": "br", "pt-pt": "pt",
+        "it-it": "it", "nl-nl": "nl", "nl-be": "be",
+        "ja-jp": "jp", "ko-kr": "kr", "zh-cn": "cn", "zh-tw": "tw", "zh-hk": "hk",
+        "ru-ru": "ru", "tr-tr": "tr", "pl-pl": "pl", "sv-se": "se", "nb-no": "no",
+        "da-dk": "dk", "fi-fi": "fi", "th-th": "th", "vi-vn": "vn", "id-id": "id",
+        "ms-my": "my", "ar-sa": "sa", "ar-ae": "ae", "he-il": "il", "hi-in": "in",
+        "uk-ua": "ua", "ro-ro": "ro", "hu-hu": "hu", "cs-cz": "cz", "sk-sk": "sk",
+        "el-gr": "gr", "bg-bg": "bg", "hr-hr": "hr"
+      };
+      // language-only fallback
+      var langMap = {
+        "en": "us", "fr": "fr", "de": "de", "es": "es", "pt": "br", "it": "it",
+        "nl": "nl", "ja": "jp", "ko": "kr", "zh": "cn", "ru": "ru", "tr": "tr",
+        "pl": "pl", "sv": "se", "nb": "no", "da": "dk", "fi": "fi", "th": "th",
+        "vi": "vn", "id": "id", "ms": "my", "ar": "sa", "he": "il", "hi": "in",
+        "uk": "ua", "ro": "ro", "hu": "hu", "cs": "cz", "sk": "sk", "el": "gr"
+      };
+      return regionMap[lang] || langMap[lang.split("-")[0]] || "us";
+    }
+
+    function getIosUrl() {
+      var country = getAppStoreCountry();
+      return "https://apps.apple.com/" + country + APP_STORE_PATH;
+    }
+
+    var IOS_URL = getIosUrl();
+
+    function isAppleDevice(ua) {
+      // iPhone / iPod
+      if (/iPhone|iPod/.test(ua)) return true;
+      // iPad (old UA string)
+      if (/iPad/.test(ua)) return true;
+      // iPad (modern: reports as Macintosh + has touch)
+      if (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1) return true;
+      // macOS desktop
+      if (/Macintosh|Mac OS X/.test(ua)) return true;
+      return false;
+    }
+
+    function isAndroid(ua) {
+      // Standard Android UA check
+      if (/android/i.test(ua)) return true;
+      // Android tablets in desktop mode: Chrome removes "Android" from UA,
+      // but navigator.userAgentData (Client Hints API) still reports the real platform
+      if (navigator.userAgentData && navigator.userAgentData.platform === "Android") return true;
+      // Fallback: Linux + touch support (covers tablets in desktop mode without Client Hints)
+      if (/Linux/.test(ua) && !(/CrOS/.test(ua)) && navigator.maxTouchPoints > 0) return true;
+      return false;
+    }
+
     window.addEventListener("DOMContentLoaded", function () {
       var ua = navigator.userAgent || navigator.vendor || window.opera;
 
-      if (/iPad|iPhone|iPod/.test(ua) && !window.MSStream) {
-        // iOS device → App Store
-        window.location.replace(IOS_URL);
-      } else if (/android/i.test(ua)) {
-        // Android device → Play Store
+      if (isAndroid(ua)) {
+        // Android phone/tablet → Play Store
         window.location.replace(ANDROID_URL);
+      } else if (isAppleDevice(ua)) {
+        // iPhone, iPad, iPod, macOS → App Store
+        window.location.replace(IOS_URL);
       } else {
-        // Desktop / unknown → show all options
+        // Other desktop / unknown → show all options
         document.getElementById("spinner-wrap").style.display = "none";
         document.getElementById("options").style.display     = "flex";
       }
