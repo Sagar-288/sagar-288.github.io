@@ -84,10 +84,21 @@
         window.location.replace(IOS_URL);
       } else {
         // Other desktop / unknown → show all options
-        document.getElementById("spinner-wrap").style.display = "none";
-        document.getElementById("options").style.display     = "flex";
+        showOptions();
       }
     });
+
+    // Fallback: if redirect hasn't happened after 5s, show options
+    setTimeout(function () {
+      if (document.getElementById("spinner-wrap").style.display !== "none") {
+        showOptions();
+      }
+    }, 5000);
+
+    function showOptions() {
+      document.getElementById("spinner-wrap").style.display = "none";
+      document.getElementById("options").style.display     = "flex";
+    }
   </script>
 
   <style>
