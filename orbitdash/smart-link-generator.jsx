@@ -1,10 +1,10 @@
 import { useState, useEffect, useRef } from "react";
 
 const DEFAULT_CONFIG = {
-  appName: "My App",
-  iosUrl: "https://apps.apple.com/app/your-app/id123456789",
-  androidUrl: "https://play.google.com/store/apps/details?id=com.yourapp",
-  fallbackUrl: "https://yourwebsite.com",
+  appName: "Orbit Dash: Infinity",
+  iosUrl: "https://apps.apple.com/app/orbit-dash-infinity/id6759604722",
+  androidUrl: "https://play.google.com/store/apps/details?id=com.orbitdash.orbitdash",
+  fallbackUrl: "https://sagar-288.github.io/orbitdash/",
 };
 
 function generateRedirectHTML(config) {
@@ -142,7 +142,7 @@ export default function SmartLinkGenerator() {
   const [config, setConfig] = useState(DEFAULT_CONFIG);
   const [copied, setCopied] = useState(false);
   const [activeTab, setActiveTab] = useState("preview"); // preview | code
-  const [hostedUrl, setHostedUrl] = useState("https://yourdomain.com/download");
+  const [hostedUrl, setHostedUrl] = useState("https://sagar-288.github.io/orbitdash/redirect");
 
   const html = generateRedirectHTML(config);
 

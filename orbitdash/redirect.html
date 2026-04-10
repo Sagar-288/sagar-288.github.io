@@ -161,8 +161,13 @@
       opacity: 0.85;
     }
     .badge-link img {
-      height: 50px;
+      height: 54px;
       width: auto;
+    }
+    /* Google Play badge PNG has built-in padding — crop it to match App Store badge */
+    .badge-link .play-badge {
+      height: 80px;
+      margin: -13px 0;
     }
 
     .btn-web {
@@ -208,11 +213,11 @@
     <!-- Shown to desktop / undetected users -->
     <div id="options">
       <a href="#" id="ios-btn" class="badge-link" onclick="this.href=IOS_URL">
-        <img src="assets/app-store-badge.svg" alt="Download on the App Store" />
+        <img src="assets/app-store-badge.svg" alt="Download on the App Store" width="200" height="60"/>
       </a>
 
       <a href="#" id="android-btn" class="badge-link" onclick="this.href=ANDROID_URL">
-        <img src="assets/google-play-badge.png" alt="Get it on Google Play" />
+        <img src="assets/google-play-badge.png" alt="Get it on Google Play" class="play-badge"/>
       </a>
 
       <hr />
