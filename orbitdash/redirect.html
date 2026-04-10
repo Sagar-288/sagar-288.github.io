@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Orbit Dash — Download</title>
+
+  <script>
+    // ─── CONFIGURE THESE THREE LINES ─────────────────────────────
+    var IOS_URL     = "https://apps.apple.com/in/app/orbit-dash-infinity/id6759604722";
+    var ANDROID_URL = "https://play.google.com/store/apps/details?id=com.orbitdash.orbitdash";
+    var FALLBACK_URL= "https://sagar-288.github.io/orbitdash/";
+    // ─────────────────────────────────────────────────────────────
+
+    window.addEventListener("DOMContentLoaded", function () {
+      var ua = navigator.userAgent || navigator.vendor || window.opera;
+
+      if (/iPad|iPhone|iPod/.test(ua) && !window.MSStream) {
+        // iOS device → App Store
+        window.location.replace(IOS_URL);
+      } else if (/android/i.test(ua)) {
+        // Android device → Play Store
+        window.location.replace(ANDROID_URL);
+      } else {
+        // Desktop / unknown → show all options
+        document.getElementById("spinner-wrap").style.display = "none";
+        document.getElementById("options").style.display     = "flex";
+      }
+    });
+  </script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 20px;
+      padding: 48px 40px;
+      text-align: center;
+      max-width: 420px;
+      width: 100%;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+    }
+
+    .app-icon { font-size: 72px; margin-bottom: 20px; }
+    h1 { font-size: 28px; font-weight: 800; color: #111; margin-bottom: 8px; }
+    .subtitle { color: #6b7280; font-size: 15px; line-height: 1.6; margin-bottom: 36px; }
+
+    /* Spinner (shown while JS detects the OS) */
+    #spinner-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+    .spinner {
+      width: 44px; height: 44px;
+      border: 3px solid #e5e7eb;
+      border-top-color: #667eea;
+      border-radius: 50%;
+      animation: spin 0.75s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .redirect-msg { color: #9ca3af; font-size: 14px; }
+
+    /* Options (shown to desktop users) */
+    #options {
+      display: none;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 15px 20px;
+      border-radius: 12px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 15px;
+      color: white;
+      transition: transform 0.12s ease, box-shadow 0.12s ease;
+    }
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.18);
+    }
+    .btn-ios     { background: linear-gradient(135deg, #007AFF, #0040DD); }
+    .btn-android { background: linear-gradient(135deg, #34A853, #1a7a35); }
+    .btn-web     { background: linear-gradient(135deg, #8B5CF6, #5B21B6); }
+
+    hr { border: none; border-top: 1px solid #f3f4f6; }
+
+    .powered {
+      margin-top: 32px;
+      font-size: 11px;
+      color: #d1d5db;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="app-icon"><img src="assets/game_logo.png" width="100" height="100" alt="Orbit Dash: Infinity"></div>
+    <h1>Orbit Dash: Infinity</h1>
+    <p class="subtitle">Just a moment — we're sending you to the right store for your device.</p>
+
+    <!-- Shown while JS is detecting the device -->
+    <div id="spinner-wrap">
+      <div class="spinner"></div>
+      <p class="redirect-msg">Detecting your device…</p>
+    </div>
+
+    <!-- Shown to desktop / undetected users -->
+    <div id="options">
+      <a href="#" id="ios-btn" class="btn btn-ios" onclick="this.href=IOS_URL">
+        <!-- Apple icon -->
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="white" aria-hidden="true">
+          <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+        </svg>
+        Download on the App Store
+      </a>
+
+      <a href="#" id="android-btn" class="btn btn-android" onclick="this.href=ANDROID_URL">
+        <!-- Play icon -->
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="white" aria-hidden="true">
+          <path d="M3 20.5v-17c0-.83.94-1.3 1.6-.8l14 8.5c.6.36.6 1.24 0 1.6l-14 8.5c-.66.5-1.6.03-1.6-.8z"/>
+        </svg>
+        Get it on Google Play
+      </a>
+
+      <hr />
+
+      <a href="#" id="web-btn" class="btn btn-web" onclick="this.href=FALLBACK_URL">
+        🌐 Visit Website
+      </a>
+    </div>
+
+    <!-- <p class="powered">Smart redirect · No tracking · Open source</p> -->
+  </div>
+</body>
+</html>
