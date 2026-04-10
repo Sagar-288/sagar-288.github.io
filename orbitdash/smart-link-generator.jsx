@@ -147,7 +147,7 @@ export default function SmartLinkGenerator() {
   const html = generateRedirectHTML(config);
 
   const handleCopy = () => {
-    navigator.clipboard.writeText(html).catch(() => {});
+    navigator.clipboard.writeText(html).catch(() => { });
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
@@ -273,7 +273,7 @@ export default function SmartLinkGenerator() {
             {
               key: "fallbackUrl",
               label: "Fallback URL (Desktop)",
-              placeholder: "https://yourwebsite.com",
+              placeholder: "https://sagar-288.github.io/orbitdash/",
               type: "url",
             },
           ].map((field) => (
