@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Morph — Privacy Policy</title>
-  <meta name="description" content="Morph Privacy Policy — how the iPhone app handles files, local information, and permissions.">
+  <meta name="description" content="How Morph handles files, optional anonymous analytics, device information, retention, and deletion.">
   <link rel="canonical" href="https://sagar-288.github.io/morph/privacy/">
   <link rel="stylesheet" href="../styles.css">
 </head>
@@ -23,75 +23,86 @@
 
   <main id="main">
     <header class="hero">
-      <p class="eyebrow">Legal · Effective August 1, 2026</p>
-      <h1 class="legal-title">Privacy without the fine print.</h1>
-      <p class="lede">Morph version 1.0 works on your device, requires no account, and does not send your files or app usage data to us.</p>
+      <p class="eyebrow">Privacy · Effective August 1, 2026</p>
+      <h1 class="legal-title">Your files stay private. Analytics stays optional.</h1>
+      <p class="lede">Morph processes files on your iPhone and never sends filenames or file contents for analytics. You decide whether to share metadata-only usage statistics.</p>
     </header>
 
     <div class="page-shell">
-      <div class="summary">
-        <div class="summary-item"><strong>No file uploads</strong><span>Conversions and edits happen on your iPhone.</span></div>
-        <div class="summary-item"><strong>No account</strong><span>No name, email, password, or profile is required.</span></div>
-        <div class="summary-item"><strong>No tracking</strong><span>No advertising SDKs or cross-app identifiers.</span></div>
-      </div>
+      <section class="summary" aria-label="Privacy summary">
+        <div class="summary-item"><strong>No file uploads</strong><span>Your source files and results are not sent to the analytics service.</span></div>
+        <div class="summary-item"><strong>Opt-in analytics</strong><span>Off unless you choose to share anonymous usage statistics.</span></div>
+        <div class="summary-item"><strong>Delete anytime</strong><span>Disable collection or delete this installation’s analytics in Settings.</span></div>
+      </section>
 
       <article class="document">
         <section id="scope">
           <h2>1. Scope</h2>
-          <p>This policy applies to Morph for iOS version 1.0. Morph is designed to convert and edit files on your device without requiring an account.</p>
-        </section>
-
-        <section id="collection">
-          <h2>2. Data collection</h2>
-          <p>Morph version 1.0 does not collect data from the app. It does not send your files, file names, file contents, conversion history, device identifiers, location, diagnostics, or usage information to Morph or to third parties.</p>
-          <p>Morph contains no advertising SDK, cross-app tracking, or third-party analytics. It does not use Apple’s advertising identifier and does not create user profiles.</p>
+          <p>This policy applies to Morph for iOS version 1.0. Morph converts and edits files without requiring an account. File processing remains on your device unless a specific future server conversion clearly asks for permission first.</p>
         </section>
 
         <section id="files">
-          <h2>3. Files and edits</h2>
-          <p>File conversion and editing happen on your device. Source files are read only after you choose them. Results are saved in Morph’s private app storage or to a destination you explicitly select, such as Photos or the Files app.</p>
-          <div class="callout"><strong>Morph does not upload or retain a server copy of your source files or results.</strong></div>
+          <h2>2. Files and edits</h2>
+          <p>Source files are read only after you choose them. Results are saved in Morph’s private app storage or to a destination you explicitly select, such as Photos or Files.</p>
+          <div class="callout"><strong>Morph does not upload or retain a server copy of your source files or results for analytics.</strong></div>
+        </section>
+
+        <section id="analytics">
+          <h2>3. Optional anonymous analytics</h2>
+          <p>Morph asks during onboarding whether you want to share anonymous usage statistics. Analytics is off unless you choose <strong>Share anonymous stats</strong>, and you can turn it off later in Settings.</p>
+          <p>When enabled, Morph sends:</p>
+          <ul>
+            <li>a randomly assigned anonymous installation identifier and the iOS Identifier for Vendor (IDFV);</li>
+            <li>device model, iOS version, Morph version, and platform;</li>
+            <li>source and target format, a coarse file-size range, on-device or server execution, duration, success/cancellation/error outcome, a stable error code, and coarse edit-operation names; and</li>
+            <li>country and region inferred by Morph’s server from the request IP address.</li>
+          </ul>
+          <p>Each event has a random identifier used only to prevent a retry from being counted twice. Analytics helps measure format demand, reliability, performance, device compatibility, and broad regional usage.</p>
+          <div class="callout"><strong>Never included:</strong> filenames, paths, file contents, content hashes, EXIF, exact file sizes, precise dimensions, precise location, contacts, advertising identifiers, or account information.</div>
+          <p>Analytics is not used for advertising, cross-app tracking, marketing profiles, or sale to data brokers.</p>
+        </section>
+
+        <section id="ip">
+          <h2>4. IP address handling</h2>
+          <p>The server uses the request IP transiently to derive a coarse country/region and apply a short abuse-prevention rate limit. The IP address itself is not stored in the analytics database or written to application logs. Only the derived coarse country and region are retained with an event.</p>
         </section>
 
         <section id="local-storage">
-          <h2>4. Information stored on your device</h2>
-          <p>Morph may store the following information locally in its app sandbox:</p>
-          <ul>
-            <li>converted files you keep in the Morph library;</li>
-            <li>app preferences and home-screen layout; and</li>
-            <li>technical conversion outcomes used only by the app itself.</li>
-          </ul>
-          <p>This local information is not transmitted off the device. You can remove saved files from within Morph.</p>
-        </section>
-
-        <section id="permissions">
-          <h2>5. Permissions</h2>
-          <p>Morph may request access to Photos, Camera, or Microphone only when you use a feature that needs it. The permission is used to read or create the item you requested. You can change these permissions at any time in iOS Settings.</p>
+          <h2>5. Information stored on your device</h2>
+          <p>Morph stores converted files kept in the Morph library, app preferences, the home-screen layout, and—only after analytics consent—an offline analytics queue. Turning analytics off clears that queue. Deleting Morph removes its app sandbox, except for copies previously exported elsewhere.</p>
+          <p>Home-layout cloud sync is disabled in version 1.0; the layout remains on device.</p>
         </section>
 
         <section id="retention">
-          <h2>6. Retention and deletion</h2>
-          <p>Morph version 1.0 has no server-side user data to retain or delete. Locally stored data remains until you remove it in Morph or delete the app. Deleting Morph removes its app sandbox, except for copies you previously exported to Photos, Files, or another app.</p>
+          <h2>6. Retention, choices, and deletion</h2>
+          <p>Analytics events are automatically deleted from Morph’s server within 180 days. Stop new collection under <strong>Settings → Share anonymous usage stats</strong>.</p>
+          <p><strong>Settings → Delete analytics data</strong> removes queued events and requests deletion of analytics associated with that installation from Morph’s server. If the request cannot connect, Morph reports that it was not completed so you can retry.</p>
+          <p>You can also request assistance at <a href="mailto:skalsaria288@gmail.com?subject=Morph%20Analytics%20Deletion">skalsaria288@gmail.com</a>. Morph has no accounts, so the in-app control may be needed to prove control of the anonymous installation token.</p>
         </section>
 
-        <section id="third-parties">
-          <h2>7. Third parties</h2>
-          <p>Morph uses Apple system frameworks and bundled software components to provide app functionality. Version 1.0 does not use those components to send app data to analytics providers, advertising networks, or other third parties.</p>
+        <section id="providers">
+          <h2>7. Service providers and security</h2>
+          <p>Morph does not include advertising SDKs or third-party analytics SDKs. Its metadata-only analytics API and database use Microsoft Azure as infrastructure supporting Morph. Data travels over HTTPS, raw event storage is restricted to the backend, and the operator dashboard exposes aggregates behind authentication.</p>
+        </section>
+
+        <section id="permissions">
+          <h2>8. Permissions</h2>
+          <p>Morph may request Photos, Camera, or Microphone access only when you use a feature that needs it. You can change these permissions in iOS Settings. Analytics never includes media obtained through these permissions.</p>
         </section>
 
         <section id="children">
-          <h2>8. Children</h2>
-          <p>Morph does not knowingly collect personal information from anyone, including children.</p>
+          <h2>9. Children</h2>
+          <p>Morph is not directed to children under the minimum age required to consent to data processing in their country. It does not knowingly collect contact details or account information from children. A parent or guardian can disable analytics or use the deletion control above.</p>
         </section>
 
         <section id="changes">
-          <h2>9. Changes to this policy</h2>
-          <p>If a future version introduces an optional online service or data collection, this policy and the App Store privacy disclosure will be updated before that version is released. Where required, Morph will ask for consent before sending data or files.</p>
+          <h2>10. Changes</h2>
+          <p>This policy and the App Store privacy disclosure will be updated before Morph materially changes its data practices. The effective date identifies the current version.</p>
         </section>
 
         <section id="contact">
-          <h2>10. Contact</h2>
-          <p>Questions about privacy can be sent to <a href="mailto:skalsaria288@gmail.com?subject=Morph%20Privacy">skalsaria288@gmail.com</a>. You can also visit <a href="/morph/support/">Morph Support</a>.</p>
+          <h2>11. Contact</h2>
+          <p>Privacy questions can be sent to <a href="mailto:skalsaria288@gmail.com?subject=Morph%20Privacy">skalsaria288@gmail.com</a>. You can also visit <a href="/morph/support/">Morph Support</a>.</p>
         </section>
       </article>
     </div>
